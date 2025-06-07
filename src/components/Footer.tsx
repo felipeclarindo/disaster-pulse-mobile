@@ -38,7 +38,7 @@ const Footer = () => {
             <Feather
               name={icon}
               size={24}
-              color={isActive ? "#54C65B" : "#5A7D4C"}
+              color={isActive ? "#FC7032" : "#fc6f32d5"}
             />
             <Text style={[styles.label, isActive && styles.activeLabel]}>
               {label}
@@ -67,17 +67,17 @@ const styles = StyleSheet.create({
   },
   activeButton: {
     borderTopWidth: 2,
-    borderTopColor: "#54C65B",
+    borderTopColor: "#FC7032",
     paddingTop: 7,
   },
   label: {
-    color: "#5A7D4C",
+    color: "#fc6f32d8",
     fontSize: 12,
     marginTop: 4,
     fontWeight: "600",
   },
   activeLabel: {
-    color: "#54C65B",
+    color: "#FC7032",
     fontWeight: "700",
   },
 });

@@ -1,6 +1,6 @@
 🌍 [Read in English](README.md)
 
-# Mottu Mapping Mobile
+# Disaster Pulse Mobile
 
 Aplicativo mobile para gerar relatórios e controlar o estoque usando visão computacional para identificar motos em um pátio.
 

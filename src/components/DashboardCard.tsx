@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#4CAF50",
+    color: "#FC7032",
   },
   statLabel: {
     fontSize: 14,

@@ -1,23 +1,7 @@
-import { ImageSourcePropType } from "react-native";
-
 export type UserProps = {
   user: string;
   email: string;
   senha?: string;
-};
-export type Moto = {
-  id: string;
-  setorDescription: string;
-  setorName: string;
-  setorColorRgb: string;
-  setorId: string;
-  plate?: string;
-};
-
-export type ImageModalProps = {
-  visible: boolean;
-  onClose: () => void;
-  imageSource: ImageSourcePropType;
 };
 
 export type DashboardCardProps = {

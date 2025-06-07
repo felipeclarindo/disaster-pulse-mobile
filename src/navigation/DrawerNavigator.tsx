@@ -1,12 +1,10 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Feather } from "@expo/vector-icons";
-
 import HomePage from "../pages/screens/HomePage";
-import PatioPage from "../pages/screens/PatioPage";
-import ReportPage from "../pages/screens/ReportPage";
 import AccountPage from "../pages/screens/AccountPage";
 import CustomDrawerContent from "./CustomDrawerContent";
+import AlertsPage from "../pages/screens/AlertsPage";
 
 const Drawer = createDrawerNavigator();
 
@@ -18,7 +16,7 @@ export default function DrawerNavigator() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
-        drawerActiveTintColor: "#54C65B",
+        drawerActiveTintColor: "#FC7032",
         drawerInactiveTintColor: "#8D8D8D",
         drawerLabelStyle: {
           fontWeight: "600",
@@ -41,23 +39,13 @@ export default function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name="patio"
-        component={PatioPage}
+        name="alerts"
+        component={AlertsPage}
         options={{
           drawerIcon: ({ color, size }) => (
-            <Feather name="map" size={size} color={color} />
+            <Feather name="bell" size={size} color={color} />
           ),
-          title: "Pátio",
-        }}
-      />
-      <Drawer.Screen
-        name="report"
-        component={ReportPage}
-        options={{
-          drawerIcon: ({ color, size }) => (
-            <Feather name="file-text" size={size} color={color} />
-          ),
-          title: "Relatórios",
+          title: "Alertas",
         }}
       />
       <Drawer.Screen

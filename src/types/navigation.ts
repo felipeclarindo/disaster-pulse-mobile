@@ -3,8 +3,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type DrawerParamList = {
   home: HomeScreenNavigationProp;
-  patio: PatioScreenNavigationProp;
-  report: ReportScreenNavigationProp;
+  alerts: AlertsScreenNavigationProp;
   account: AccountScreenNavigationProp;
   login: LoginScreenNavigationProp;
 };
@@ -19,14 +18,9 @@ export type AccountScreenNavigationProp = DrawerNavigationProp<
   "account"
 >;
 
-export type ReportScreenNavigationProp = DrawerNavigationProp<
+export type AlertsScreenNavigationProp = DrawerNavigationProp<
   DrawerParamList,
-  "report"
->;
-
-export type PatioScreenNavigationProp = DrawerNavigationProp<
-  DrawerParamList,
-  "patio"
+  "alerts"
 >;
 
 export type RegisterScreenNavigationProp = NativeStackNavigationProp<

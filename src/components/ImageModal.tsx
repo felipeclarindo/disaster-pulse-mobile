@@ -11,9 +11,8 @@ import {
 } from "react-native";
 import * as FileSystem from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
-import { ImageModalProps } from "../types";
 
-const ImageModal = ({ visible, onClose, imageSource }: ImageModalProps) => {
+const ImageModal = ({ visible, onClose, imageSource }) => {
   const [downloading, setDownloading] = useState(false);
 
   const handleDownload = async () => {

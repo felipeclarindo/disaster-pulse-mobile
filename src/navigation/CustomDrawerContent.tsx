@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#54C65B",
+    borderBottomColor: "#FC7032",
     alignItems: "center",
   },
   logo: {

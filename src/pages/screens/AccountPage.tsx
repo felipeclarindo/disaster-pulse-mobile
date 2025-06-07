@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -68,7 +61,7 @@ const AccountPage = () => {
         onMenuPress={() => navigation.dispatch(DrawerActions.openDrawer())}
       />
 
-      <ScrollView contentContainerStyle={styles.content}>
+      <View style={styles.content}>
         <Text style={styles.title}>Informações da Conta</Text>
 
         {user && (
@@ -98,7 +91,7 @@ const AccountPage = () => {
             <Text style={styles.secondaryButtonText}>Sair</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
 
       <Footer />
     </View>
@@ -117,13 +110,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#54C65B",
+    color: "#FC7032",
     textAlign: "center",
     marginBottom: 24,
   },
   card: {
     backgroundColor: "#1F1F1F",
-    borderColor: "#3A6E33",
+    borderColor: "#FC7032",
     borderWidth: 1,
     borderRadius: 12,
     padding: 16,
@@ -145,14 +138,14 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   primaryButton: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#FC7032",
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
     marginBottom: 16,
   },
   primaryButtonText: {
-    color: "#121212",
+    color: "#fff",
     fontSize: 16,
     fontWeight: "700",
   },

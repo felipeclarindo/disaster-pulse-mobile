@@ -99,14 +99,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#54C65B",
+    color: "#FC7032",
     textAlign: "center",
     marginBottom: 32,
   },
   input: {
     height: 50,
     backgroundColor: "#1F1F1F",
-    borderColor: "#3A6E33",
+    borderColor: "#FC7032",
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 16,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   button: {
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#FC7032",
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   buttonText: { color: "#121212", fontSize: 16, fontWeight: "700" },
   footerText: { textAlign: "center", color: "#C7D6B9", fontSize: 14 },
   linkText: {
-    color: "#54C65B",
+    color: "#FC7032",
     fontWeight: "700",
     textDecorationLine: "underline",
   },

@@ -15,7 +15,7 @@ const Header = ({ title, onMenuPress }: HeaderProps) => {
         style={styles.menuButton}
         activeOpacity={0.7}
       >
-        <Feather name="menu" size={28} color="#54C65B" />
+        <Feather name="menu" size={28} color="#FC7032" />
       </TouchableOpacity>
       <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
         {title}
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    color: "#54C65B",
+    color: "#FC7032",
     marginHorizontal: 10,
   },
   logo: {

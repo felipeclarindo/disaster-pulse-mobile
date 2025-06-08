@@ -14,3 +14,10 @@ export type HeaderComponentProps = {
   title: string;
   navigation: any;
 };
+export interface Alert {
+  id: number;
+  topic: string;
+  description: string;
+  countryId: number;
+  criticality: number;
+}

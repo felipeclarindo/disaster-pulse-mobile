@@ -2,7 +2,7 @@
 
 # Disaster Pulse Mobile
 
-Mobile Application to get reports and can make the stock using a vision computational to identify motos in a patio.
+Mobile Application to create alerts and send to the population about natural disasters.
 
 ## Technologies Used
 
@@ -10,30 +10,26 @@ Mobile Application to get reports and can make the stock using a vision computat
 - **Expo** - Development environment and tools for React Native apps.
 - **TypeScript** - JavaScript superset with static typing.
 - **React Navigation** - Navigation between app screens.
-- **AsyncStorage** - Local storage for data persistence.
-- **react-native-chart-kit** - Library for displaying charts and graphs.
-- **Computer Vision Backend** - API for identifying motorcycles in images.
+- **Api Backend** - API for talk with the database
 
 ## Features
 
-- Interactive dashboard with charts showing motorcycle status.
-- Real-time patio monitoring with images.
-- Generate reports based on collected data.
-- Smooth navigation between Home, Patio, and Report screens.
-- Local user data storage and retrieval.
+- Crud to manage alers.
+- Dashboard with alert's summary.
+- Page to controll alerts.
 
 ## Steps to install and run
 
 1. Clone the Repository:
 
 ```bash
-git clone https://github.com/felipeclarindo/mottu-mapping-mobile.git
+git clone https://github.com/felipeclarindo/disaster-pulse-mobile.git
 ```
 
 2. Enter directory:
 
 ```bash
-cd mottu-mapping-mobile
+cd disaster-pulse-mobile
 ```
 
 3. Install dependencies :

@@ -5,6 +5,8 @@ import HomePage from "../pages/screens/HomePage";
 import AccountPage from "../pages/screens/AccountPage";
 import CustomDrawerContent from "./CustomDrawerContent";
 import AlertsPage from "../pages/screens/AlertsPage";
+import AlertDetailsPage from "../pages/screens/AlertDetailsPage";
+import AlertStatisticsPage from "../pages/screens/AlertStatisticsPage";
 
 const Drawer = createDrawerNavigator();
 
@@ -48,6 +50,27 @@ export default function DrawerNavigator() {
           title: "Alertas",
         }}
       />
+      <Drawer.Screen
+        name="alertsDetails"
+        component={AlertDetailsPage}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Feather name="bell" size={size} color={color} />
+          ),
+          title: "Detalhes dos Alertas",
+        }}
+      />
+      <Drawer.Screen
+        name="alertsStatistics"
+        component={AlertStatisticsPage}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Feather name="bell" size={size} color={color} />
+          ),
+          title: "Estatisticas dos Alertas",
+        }}
+      />
+
       <Drawer.Screen
         name="account"
         component={AccountPage}

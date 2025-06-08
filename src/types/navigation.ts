@@ -6,6 +6,8 @@ export type DrawerParamList = {
   alerts: AlertsScreenNavigationProp;
   account: AccountScreenNavigationProp;
   login: LoginScreenNavigationProp;
+  alertStatistics: AlertStatisticsNavigationProp;
+  alertDetails: AlertDetailsNavigationProp;
 };
 
 export type HomeScreenNavigationProp = DrawerNavigationProp<
@@ -21,6 +23,15 @@ export type AccountScreenNavigationProp = DrawerNavigationProp<
 export type AlertsScreenNavigationProp = DrawerNavigationProp<
   DrawerParamList,
   "alerts"
+>;
+
+export type AlertStatisticsNavigationProp = DrawerNavigationProp<
+  DrawerParamList,
+  "alertStatistics"
+>;
+export type AlertDetailsNavigationProp = DrawerNavigationProp<
+  DrawerParamList,
+  "alertDetails"
 >;
 
 export type RegisterScreenNavigationProp = NativeStackNavigationProp<

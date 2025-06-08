@@ -1,5 +1,3 @@
-// AlertsPage.tsx
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -15,12 +13,11 @@ import {
   Platform,
 } from "react-native";
 import { DrawerActions, useNavigation } from "@react-navigation/native";
-import axios from "axios"; // Importando o axios
-// Ensure these paths are correct relative to your project structure
 import { AlertsScreenNavigationProp } from "../../types/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { Alert } from "../../model/Alert"; // Your Alert model definition
+import axios from "axios";
 
 const AlertsPage = () => {
   const navigation = useNavigation<AlertsScreenNavigationProp>();
@@ -40,11 +37,10 @@ const AlertsPage = () => {
   const API_BASE = "http://192.168.0.2:5272/api/alerts";
 
   const showToast = (message: string) => {
-    const messageString = String(message);
     if (Platform.OS === "android") {
-      ToastAndroid.show(messageString, ToastAndroid.SHORT);
+      ToastAndroid.show(message, ToastAndroid.SHORT);
     } else {
-      RNAlert.alert("Aviso", messageString);
+      RNAlert.alert("Aviso", message);
     }
   };
 
@@ -90,48 +86,16 @@ const AlertsPage = () => {
         await axios.put(`${API_BASE}/${editingId}`, form);
         showToast("Alerta editado com sucesso!");
       } else {
-        await axios.post(API_BASE, form);
+        const newId =
+          alerts.length > 0 ? Math.max(...alerts.map((a) => a.id)) + 1 : 1;
+        setAlerts((prev) => [...prev, { id: newId, ...form }]);
         showToast("Alerta criado com sucesso!");
       }
       setModalVisible(false);
-      fetchAlerts();
-    } catch (error) {
-      console.error("Erro ao salvar alerta:", error);
-      let errorMessage = "Não foi possível salvar o alerta.";
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          if (
-            typeof error.response.data === "object" &&
-            error.response.data !== null &&
-            error.response.data.errors
-          ) {
-            errorMessage = JSON.stringify(error.response.data.errors);
-          } else if (
-            typeof error.response.data === "object" &&
-            error.response.data !== null
-          ) {
-            errorMessage =
-              error.response.data.message ||
-              JSON.stringify(error.response.data);
-          } else {
-            errorMessage = String(error.response.data) || errorMessage;
-          }
-          console.error(
-            "Detalhes da resposta de erro do backend (salvar):",
-            error.response.data
-          );
-        } else if (error.request) {
-          errorMessage =
-            "Erro de rede ou servidor não respondeu. Verifique sua conexão ou o status do servidor.";
-          console.error("Erro na requisição (sem resposta):", error.request);
-        } else {
-          errorMessage = "Erro interno ao configurar a requisição.";
-          console.error("Erro na configuração da requisição:", error.message);
-        }
-      }
-      RNAlert.alert("Erro", errorMessage);
-    } finally {
       setSaving(false);
+    } catch (error) {
+      setSaving(false);
+      RNAlert.alert("Erro", "Não foi possível salvar o alerta.");
     }
   };
 
@@ -206,10 +170,6 @@ const AlertsPage = () => {
     setModalVisible(true);
   };
 
-  useEffect(() => {
-    fetchAlerts();
-  }, []);
-
   return (
     <View style={styles.container}>
       <Header
@@ -227,42 +187,48 @@ const AlertsPage = () => {
 
         {(() => {
           if (loading) {
-            return <ActivityIndicator color="#fff" size="large" />;
-          }
-          if (alerts.length === 0) {
+            return (
+              <ActivityIndicator
+                size="large"
+                color="#FC7032"
+                style={{ marginTop: 30 }}
+              />
+            );
+          } else if (alerts.length === 0) {
             return (
               <Text style={styles.noAlerts}>Nenhum alerta encontrado.</Text>
             );
-          }
-          return (
-            <FlatList
-              data={alerts}
-              keyExtractor={(item) => item.id.toString()}
-              contentContainerStyle={styles.list}
-              renderItem={({ item }) => (
-                <View style={styles.alertItem}>
-                  <Text style={styles.alertTitle}>{item.topic}</Text>
-                  <Text style={styles.alertDescription}>
-                    {item.description}
-                  </Text>
-                  <Text style={styles.alertDescription}>
-                    Criticidade: {item.criticality}
-                  </Text>
-                  <Text style={styles.alertDescription}>
-                    País ID: {item.countryId}
-                  </Text>
-                  <View style={styles.actions}>
-                    <TouchableOpacity onPress={() => openModalToEdit(item)}>
-                      <Text style={styles.edit}>Editar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                      <Text style={styles.delete}>Excluir</Text>
-                    </TouchableOpacity>
+          } else {
+            return (
+              <FlatList
+                data={alerts}
+                keyExtractor={(item) => item.id.toString()}
+                style={styles.list}
+                renderItem={({ item }) => (
+                  <View style={styles.alertItem}>
+                    <Text style={styles.alertTitle}>{item.topic}</Text>
+                    <Text style={styles.alertDescription}>
+                      {item.description}
+                    </Text>
+                    <Text style={styles.alertDescription}>
+                      País: {item.countryId}
+                    </Text>
+                    <Text style={styles.alertDescription}>
+                      Criticidade: {item.criticality}
+                    </Text>
+                    <View style={styles.actions}>
+                      <TouchableOpacity onPress={() => openModalToEdit(item)}>
+                        <Text style={styles.edit}>Editar</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                        <Text style={styles.delete}>Excluir</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                </View>
-              )}
-            />
-          );
+                )}
+              />
+            );
+          }
         })()}
 
         <Modal visible={modalVisible} transparent animationType="slide">
@@ -294,7 +260,7 @@ const AlertsPage = () => {
                 keyboardType="numeric"
                 value={form.countryId.toString()}
                 onChangeText={(text) =>
-                  setForm({ ...form, countryId: parseInt(text) || 1 })
+                  setForm({ ...form, countryId: parseInt(text) || 0 })
                 }
                 editable={!saving}
               />
@@ -305,7 +271,7 @@ const AlertsPage = () => {
                 keyboardType="numeric"
                 value={form.criticality.toString()}
                 onChangeText={(text) =>
-                  setForm({ ...form, criticality: parseInt(text) || 1 })
+                  setForm({ ...form, criticality: parseInt(text) || 0 })
                 }
                 editable={!saving}
               />
@@ -383,58 +349,60 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     marginTop: 10,
   },
   edit: {
-    color: "#FC7032",
+    color: "#3EB489",
+    marginRight: 20,
     fontWeight: "bold",
   },
   delete: {
-    color: "#E53935",
+    color: "#FC7032",
     fontWeight: "bold",
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: "#000000aa",
     justifyContent: "center",
-    alignItems: "center",
+    paddingHorizontal: 16,
   },
   modalBox: {
-    backgroundColor: "#2c2c2c",
-    padding: 20,
+    backgroundColor: "#292929",
     borderRadius: 10,
-    width: "90%",
+    padding: 20,
   },
   modalTitle: {
+    fontSize: 20,
     color: "#fff",
-    fontSize: 18,
-    marginBottom: 10,
     fontWeight: "bold",
+    marginBottom: 15,
+    textAlign: "center",
   },
   input: {
-    backgroundColor: "#444",
-    color: "#fff",
-    padding: 10,
-    marginVertical: 5,
+    borderWidth: 1,
+    borderColor: "#444",
     borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    marginBottom: 10,
+    color: "#fff",
   },
   saveButton: {
-    backgroundColor: "#FC7032",
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 10,
+    backgroundColor: "#3EB489",
+    padding: 12,
+    borderRadius: 10,
     alignItems: "center",
+    marginBottom: 10,
   },
   saveButtonText: {
     color: "#fff",
     fontWeight: "bold",
   },
   cancelButton: {
-    color: "#E0E0E0",
-    marginTop: 10,
-    textAlign: "center",
+    color: "#FC7032",
     fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

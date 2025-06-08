@@ -1,6 +1,4 @@
-// AlertDetailsPage.tsx
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -9,11 +7,21 @@ import {
   FlatList,
   Modal,
   ActivityIndicator,
+  Alert,
 } from "react-native";
-import { DrawerActions, useNavigation } from "@react-navigation/native";
+import {
+  DrawerActions,
+  useNavigation,
+  useRoute,
+  RouteProp,
+} from "@react-navigation/native";
+import axios from "axios";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { AlertsScreenNavigationProp } from "../../types/navigation";
+
+// Constante para a URL base da API
+const API_BASE = "http://192.168.0.2:5272/api/alerts";
 
 type AlertDetail = {
   id: number;
@@ -21,7 +29,7 @@ type AlertDetail = {
   message: string;
 };
 
-type AlertMock = {
+type AlertData = {
   id: number;
   topic: string;
   description: string;
@@ -30,34 +38,34 @@ type AlertMock = {
   history: AlertDetail[];
 };
 
-const mockAlert: AlertMock = {
-  id: 1,
-  topic: "Fogo na Floresta Amazônica",
-  description: "Alerta de fogo detectado em área de floresta na região Norte.",
-  criticality: 5,
-  countryId: 55,
-  history: [
-    { id: 1, timestamp: "2025-06-01 10:23", message: "Alerta criado" },
-    {
-      id: 2,
-      timestamp: "2025-06-02 08:10",
-      message: "Equipe de resgate acionada",
-    },
-    {
-      id: 3,
-      timestamp: "2025-06-03 14:45",
-      message: "Fogo controlado parcialmente",
-    },
-  ],
-};
-
 const AlertDetailsPage = () => {
   const navigation = useNavigation<AlertsScreenNavigationProp>();
-  const [loading, setLoading] = useState(false);
+  const route =
+    useRoute<RouteProp<{ params: { alertId: number } }, "params">>();
+  const { alertId } = route.params;
+
+  const [alert, setAlert] = useState<AlertData | null>(null);
+  const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedHistory, setSelectedHistory] = useState<AlertDetail | null>(
     null
   );
+
+  const fetchAlertDetails = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API_BASE}/${alertId}`);
+      setAlert(response.data);
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível carregar os dados do alerta.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAlertDetails();
+  }, []);
 
   const openModal = (history: AlertDetail) => {
     setSelectedHistory(history);
@@ -74,25 +82,23 @@ const AlertDetailsPage = () => {
       <View style={styles.content}>
         {loading ? (
           <ActivityIndicator color="#fff" size="large" />
-        ) : (
+        ) : alert ? (
           <>
             <View style={styles.alertInfo}>
-              <Text style={styles.alertTitle}>{mockAlert.topic}</Text>
+              <Text style={styles.alertTitle}>{alert.topic}</Text>
+              <Text style={styles.alertDescription}>{alert.description}</Text>
               <Text style={styles.alertDescription}>
-                {mockAlert.description}
+                Criticidade: {alert.criticality}
               </Text>
               <Text style={styles.alertDescription}>
-                Criticidade: {mockAlert.criticality}
-              </Text>
-              <Text style={styles.alertDescription}>
-                País ID: {mockAlert.countryId}
+                País ID: {alert.countryId}
               </Text>
             </View>
 
             <Text style={styles.historyTitle}>Histórico do Alerta</Text>
 
             <FlatList
-              data={mockAlert.history}
+              data={alert.history}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity
@@ -128,6 +134,8 @@ const AlertDetailsPage = () => {
               </View>
             </Modal>
           </>
+        ) : (
+          <Text style={{ color: "#fff" }}>Alerta não encontrado.</Text>
         )}
       </View>
       <Footer />

@@ -10,11 +10,11 @@ Mobile Application to create alerts and send to the population about natural dis
 - **Expo** - Development environment and tools for React Native apps.
 - **TypeScript** - JavaScript superset with static typing.
 - **React Navigation** - Navigation between app screens.
-- **Api Backend** - API for talk with the database
+- **Api Backend** - API for connect with the database
 
 ## Features
 
-- Crud to manage alers.
+- Crud to manage alerts.
 - Dashboard with alert's summary.
 - Page to controll alerts.
 

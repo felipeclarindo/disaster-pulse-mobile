@@ -20,33 +20,57 @@ Mobile Application to create alerts and send to the population about natural dis
 
 ## Steps to install and run
 
-1. Clone the Repository:
+1. Clone the api repository.
 
 ```bash
-git clone https://github.com/felipeclarindo/disaster-pulse-mobile.git
+git clone https://github.com/felipeclarindo/disaster-pulse-api-dotnet.git
 ```
 
 2. Enter directory:
 
 ```bash
+cd disaster-pulse-api-dotnet
+```
+
+3. Run migrations:
+
+```bash
+dotnet ef database update --project ./Src/Infra
+```
+
+4. Run Api:
+
+```bash
+dotnet run --project ./Src/WebApi
+```
+
+5. Clone the Repository:
+
+```bash
+git clone https://github.com/felipeclarindo/disaster-pulse-mobile.git
+```
+
+6. Enter directory:
+
+```bash
 cd disaster-pulse-mobile
 ```
 
-3. Install dependencies :
+7. Install dependencies :
 
 ```bash
 npm install
 ```
 
-4. Make sure you have an android device to view the app(emulator or via debugging).
+8. Make sure you have an android device to view the app(emulator or via debugging).
 
-5. Run the app
+9. Run the app
 
 ```bash
 npx expo start
 ```
 
-6. Press `A` to open the application in android.
+10. Press `A` to open the application in android.
 
 ## Contribution
 

@@ -23,30 +23,54 @@ Aplicativo móvel para criar alertas e enviar para a população sobre desastres
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/felipeclarindo/disaster-pulse-mobile.git
+git clone https://github.com/felipeclarindo/disaster-pulse-api-dotnet.git
 ```
 
 2. Entre no diretório:
 
 ```bash
+cd disaster-pulse-api-dotnet
+```
+
+3. Execute as migrations:
+
+```bash
+dotnet ef database update --project ./Src/Infra
+```
+
+4. Execute a Api:
+
+```bash
+dotnet run --project ./Src/WebApi
+```
+
+5. Clone o repositório:
+
+```bash
+git clone https://github.com/felipeclarindo/disaster-pulse-mobile.git
+```
+
+6. Entre no diretório:
+
+```bash
 cd disaster-pulse-mobile
 ```
 
-3. Instale as dependências:
+7. Instale as dependências:
 
 ```bash
 npm install
 ```
 
-4. Certifique-se de ter um dispositivo android para visualizar o app(emulador ou via depuracao).
+8. Certifique-se de ter um dispositivo android para visualizar o app(emulador ou via depuracao).
 
-5. Execute o app:
+9. Execute o app:
 
 ```bash
 npx expo start
 ```
 
-6. Pressione `A` para abrir o aplicativo no android.
+10. Pressione `A` para abrir o aplicativo no android.
 
 ## Contribuição
 
